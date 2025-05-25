@@ -33,23 +33,16 @@
    ```
    Secara default, aplikasi akan berjalan di port 3000.
 
-## Variabel Environment yang Perlu Diubah
-
-Variabel-variabel berikut dibaca menggunakan Viper, baik dari file `.env` maupun environment variables sistem:
-
-- `GEMINI_API_KEY`
-  Masukkan API key Gemini yang valid agar chatbot dapat berfungsi.
-
 ## Endpoint
 
 - `POST /chat`
-  Kirim pertanyaan tentang portfolio Ucup dalam format JSON:
+  Contoh request payload:
   ```json
   {
     "question": "Apa pengalaman Ucup dengan Docker?"
   }
   ```
-  Response:
+  Contoh Response:
   ```json
   {
     "answer": "Ucup aktif dalam proses deployment menggunakan Docker dan CI/CD pipeline dengan GitHub Actions..."
@@ -74,4 +67,4 @@ Contoh:
 const portfolioContext = `Berikut adalah portfolio singkat tentang Budi:
 Budi adalah seorang Backend Developer yang berpengalaman dalam membangun API dengan Go dan PostgreSQL...`
 ```
-Pastikan untuk menyesuaikan isi string tersebut sesuai kebutuhan Anda.
+Pastikan untuk menyesuaikan isi string tersebut sesuai kebutuhan.
