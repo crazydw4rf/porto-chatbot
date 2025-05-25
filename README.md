@@ -16,11 +16,11 @@
    ```
 
 3. **Konfigurasi file .env**
-   Buat file `.env` di root folder (jika belum ada), lalu isi dengan variabel berikut:
+   Salin file `.env.example` menjadi `.env` di root folder:
+   ```bash
+   cp .env.example .env
    ```
-   GEMINI_API_KEY=your_gemini_api_key
-   ```
-   Ganti `your_gemini_api_key` dengan API key Gemini milikmu.
+    Kemudian, buka file `.env` dan masukkan API key Gemini yang valid pada variabel `GEMINI_API_KEY`.
 
 4. **Build aplikasi**
    ```bash
@@ -34,6 +34,8 @@
    Secara default, aplikasi akan berjalan di port 3000.
 
 ## Variabel Environment yang Perlu Diubah
+
+Variabel-variabel berikut dibaca menggunakan Viper, baik dari file `.env` maupun environment variables sistem:
 
 - `GEMINI_API_KEY`
   Masukkan API key Gemini yang valid agar chatbot dapat berfungsi.
