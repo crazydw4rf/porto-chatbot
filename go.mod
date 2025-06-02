@@ -5,7 +5,7 @@ go 1.24.3
 require (
 	github.com/gofiber/fiber/v2 v2.52.8
 	github.com/spf13/viper v1.20.1
-	google.golang.org/genai v1.7.0
+	google.golang.org/genai v1.8.0
 )
 
 require (
