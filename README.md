@@ -24,7 +24,7 @@
 
 4. **Build aplikasi**
    ```bash
-   go build -o porto-chatbot ./cmd/porto-chatbot
+   go build -o porto-chatbot ./cmd/porto-chatbot/main.go
    ```
 
 5. **Jalankan aplikasi**
@@ -48,6 +48,49 @@
     "answer": "Ucup aktif dalam proses deployment menggunakan Docker dan CI/CD pipeline dengan GitHub Actions..."
   }
   ```
+
+## Deploy ke Vercel Serverless Function
+
+Proyek ini sudah dikonfigurasi untuk bisa dideploy ke Vercel sebagai serverless function. Ikuti langkah berikut:
+
+### 1. Set Environment Variables di Vercel
+
+Setelah membuat project di Vercel:
+
+1. Buka dashboard Vercel project kamu
+2. Pergi ke **Settings** → **Environment Variables**
+3. Tambahkan variabel berikut:
+   - `GEMINI_API_KEY`: API key Gemini kamu
+   - `CORS_DOMAINS`: Domain yang diizinkan (contoh: `https://yourapp.vercel.app` atau `*` untuk semua)
+
+### 2. Deploy
+
+Ada dua cara untuk deploy:
+
+**Cara 1: Melalui GitHub (Recommended)**
+1. Push project ke GitHub repository
+2. Import repository di Vercel dashboard
+3. Vercel akan otomatis build dan deploy
+
+**Cara 2: Melalui Vercel CLI**
+```bash
+# Install Vercel CLI
+npm i -g vercel
+
+# Deploy
+vercel
+
+# Follow the prompts
+```
+
+### 3. Testing
+
+Setelah deploy berhasil, kamu bisa test endpoint:
+```bash
+curl -X POST https://your-app.vercel.app/chat \
+  -H "Content-Type: application/json" \
+  -d '{"question": "Apa pengalaman Ucup dengan Docker?"}'
+```
 
 ## Catatan
 
