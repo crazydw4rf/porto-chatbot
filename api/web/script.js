@@ -4,10 +4,10 @@ const userInput = document.getElementById("user-input");
 
 const BOT_NAME = "Porto";
 
-const apiURL = "http://localhost:3000/chat";
+const CHAT_API_PATH = "/chat";
 
 async function requestChatbotResponse(question) {
-  return fetch(apiURL, {
+  return fetch(CHAT_API_PATH, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",

@@ -1,40 +1,43 @@
-package main
+package api
 
 import (
 	"context"
 	"embed"
-	"fmt"
+	"log"
 	"net/http"
 
+	"github.com/rotisserie/eris"
 	"github.com/spf13/viper"
 
 	"github.com/gofiber/fiber/v2"
+	"github.com/gofiber/fiber/v2/middleware/adaptor"
 	"github.com/gofiber/fiber/v2/middleware/cors"
 	"github.com/gofiber/fiber/v2/middleware/filesystem"
 	"google.golang.org/genai"
 )
 
-func loadEnv() {
-	viper.SetConfigName(".env") // name of config file (without extension)
-	viper.SetConfigType("env")  // type of config file
-	viper.AddConfigPath(".")    // path to look for the config file in
+//go:embed web
+var webFiles embed.FS
+
+func init() {
+	LoadEnvVars()
+}
+
+func LoadEnvVars() {
+	viper.SetConfigName(".env")
+	viper.SetConfigType("env")
+	viper.AddConfigPath(".")
+
 	viper.BindEnv("GEMINI_API_KEY", "GEMINI_API_KEY")
+	viper.BindEnv("CORS_DOMAINS", "CORS_DOMAINS")
 
-	viper.AutomaticEnv() // read in environment variables that match
-
+	viper.AutomaticEnv()
 	if err := viper.ReadInConfig(); err != nil {
 		if _, ok := err.(viper.ConfigFileNotFoundError); ok {
-			// Config file not found; ignore error if desired
-			fmt.Println(".env file not found, relying on environment variables")
-		} else {
-			// Config file was found but another error was produced
-			panic(fmt.Errorf("fatal error config file: %w", err))
+			log.Println(".env file not found, relying on environment variables")
 		}
 	}
 }
-
-//go:embed web
-var embeddedFiles embed.FS
 
 const portfolioContext = `Berikut adalah portfolio singkat tentang Ucup:
 Ucup adalah seorang Full Stack Developer dengan pengalaman lebih dari tiga tahun dalam mengembangkan aplikasi web modern. Ia memiliki keahlian yang solid di sisi front-end menggunakan React.js, Next.js, dan Vue.js, serta sisi back-end dengan Node.js, Express.js, dan Go. Dalam pengembangan sistem, ia terbiasa menerapkan arsitektur RESTful API maupun GraphQL, serta prinsip-prinsip clean architecture dan microservices. Ucup juga mahir dalam penggunaan berbagai database seperti PostgreSQL untuk transaksi yang kompleks, MongoDB untuk skema yang fleksibel, serta Redis sebagai caching layer untuk meningkatkan performa aplikasi.
@@ -44,6 +47,7 @@ Dengan semangat belajar yang tinggi dan pendekatan kerja yang terstruktur, Ucup 
 
 Kamu adalah Chatbot yang dirancang untuk menjawab pertanyaan tentang portfolio Ucup. Kamu akan memberikan jawaban berdasarkan informasi yang telah diberikan di atas. Pastikan untuk menjawab dengan jelas dan sesuai konteks, tanpa menambahkan informasi lain yang tidak relevan.
 Kamu hanya perlu menjawab pertanyaan berdasarkan informasi di atas dan jangan menambahkan informasi lain, cukup menjawab pertanyaan sesuai konteks yang diberikan.
+Jangan format jawaban menjadi markdown cukup teks biasa.
 `
 
 type ChatRequest struct {
@@ -82,7 +86,7 @@ func chatHandler(c *fiber.Ctx) error {
 
 	client, err := getGenAIClient()
 	if err != nil {
-		return fiber.NewError(fiber.StatusInternalServerError, "Failed to create GenAI client")
+		return fiber.NewError(fiber.StatusInternalServerError, eris.Wrap(err, "failed to create GenAI client").Error())
 	}
 
 	result, err := client.Models.GenerateContent(
@@ -98,29 +102,30 @@ func chatHandler(c *fiber.Ctx) error {
 	return c.Status(fiber.StatusOK).JSON(fiber.Map{"answer": result.Text()})
 }
 
-func main() {
-	loadEnv() // Load environment variables
-
+func NewFiberApp() *fiber.App {
 	app := fiber.New()
 
 	app.Use(cors.New(cors.Config{
-		AllowOrigins: "*",
+		AllowOrigins: viper.GetString("CORS_DOMAINS"),
 	}))
 
 	app.Post("/chat", chatHandler)
 
-	// app.Get("/", func(c *fiber.Ctx) error {
-	// 	return c.SendFile("./web/index.html")
-	// })
-
 	app.Use("/", filesystem.New(filesystem.Config{
 		Browse:     false,
-		Root:       http.FS(embeddedFiles),
+		Root:       http.FS(webFiles),
 		PathPrefix: "web",
 	}))
 
-	err := app.Listen(":3000")
-	if err != nil {
-		panic(fmt.Sprintf("Failed to start server: %v", err))
-	}
+	return app
+}
+
+func toHandlerFunc(f *fiber.App) http.HandlerFunc {
+	return adaptor.FiberApp(f)
+}
+
+func Handler(w http.ResponseWriter, r *http.Request) {
+	r.RequestURI = r.URL.String()
+
+	toHandlerFunc(NewFiberApp()).ServeHTTP(w, r)
 }
