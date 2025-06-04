@@ -115,6 +115,7 @@ func NewFiberApp() *fiber.App {
 		Browse:     false,
 		Root:       http.FS(webFiles),
 		PathPrefix: "web",
+		MaxAge:     604800,
 	}))
 
 	return app
