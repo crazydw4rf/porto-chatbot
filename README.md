@@ -61,7 +61,7 @@ Setelah membuat project di Vercel:
 2. Pergi ke **Settings** → **Environment Variables**
 3. Tambahkan variabel berikut:
    - `GEMINI_API_KEY`: API key Gemini kamu
-   - `CORS_DOMAINS`: Domain yang diizinkan (contoh: `https://yourapp.vercel.app` atau `*` untuk semua)
+   - `CORS_ORIGINS`: Domain yang diizinkan (contoh: `https://yourapp.vercel.app` atau `*` untuk semua)
 
 ### 2. Deploy
 
@@ -91,15 +91,6 @@ curl -X POST https://your-app.vercel.app/chat \
   -H "Content-Type: application/json" \
   -d '{"prompt": "Apa pengalaman Ucup dengan Docker?"}'
 ```
-
-## Catatan
-
-- Folder `web/` dapat digunakan untuk menaruh file frontend (misal: index.html).
-- Jika ingin mengubah port, edit bagian berikut di `main.go`:
-  ```go
-  err := app.Listen(":3000")
-  ```
-  Ganti `3000` dengan port yang diinginkan.
 
 ## Mengubah Instruksi Portfolio
 

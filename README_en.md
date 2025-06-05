@@ -61,7 +61,7 @@ After creating a project in Vercel:
 2. Go to **Settings** → **Environment Variables**
 3. Add the following variables:
    - `GEMINI_API_KEY`: Your Gemini API key
-   - `CORS_DOMAINS`: Allowed domains (example: `https://yourapp.vercel.app` or `*` for all)
+   - `CORS_ORIGINS`: Allowed domains (example: `https://yourapp.vercel.app` or `*` for all)
 
 ### 2. Deploy
 
@@ -91,15 +91,6 @@ curl -X POST https://your-app.vercel.app/chat \
   -H "Content-Type: application/json" \
   -d '{"prompt": "What is Ucup'\''s experience with Docker?"}'
 ```
-
-## Notes
-
-- The `web/` folder contains frontend files (e.g., index.html).
-- If you want to change the port, edit the following part in `main.go`:
-  ```go
-  err := app.Listen(":3000")
-  ```
-  Replace `3000` with your desired port.
 
 ## Modifying Portfolio Instructions
 
