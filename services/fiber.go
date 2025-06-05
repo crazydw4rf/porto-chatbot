@@ -4,7 +4,7 @@ import (
 	"io/fs"
 	"net/http"
 
-	"github.com/crazydw4rf/porto-chatbot/internal/config"
+	"github.com/crazydw4rf/porto-chatbot/config"
 	"github.com/gofiber/fiber/v2"
 	"github.com/gofiber/fiber/v2/middleware/cors"
 	"github.com/gofiber/fiber/v2/middleware/filesystem"
@@ -23,7 +23,7 @@ func NewFiberService(cfg *config.Config) FiberService {
 }
 
 func (f FiberService) SetStaticEmbeddedFiles(path string, prefix string, fs fs.FS) {
-	f.App.Use("/", filesystem.New(filesystem.Config{
+	f.App.Use(path, filesystem.New(filesystem.Config{
 		Browse:     false,
 		Root:       http.FS(fs),
 		PathPrefix: prefix,

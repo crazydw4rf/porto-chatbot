@@ -3,7 +3,7 @@ package services
 import (
 	"context"
 
-	"github.com/crazydw4rf/porto-chatbot/internal/config"
+	"github.com/crazydw4rf/porto-chatbot/config"
 	"google.golang.org/genai"
 )
 

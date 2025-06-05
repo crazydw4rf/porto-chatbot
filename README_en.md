@@ -103,7 +103,7 @@ curl -X POST https://your-app.vercel.app/chat \
 
 ## Modifying Portfolio Instructions
 
-If you want to change the portfolio context used by the chatbot, modify the `UcupPortfolio` constant value in the `internal/instruction/portfolio.go` file.
+If you want to change the portfolio context used by the chatbot, modify the `UcupPortfolio` constant value in the `instruction/portfolio.go` file.
 
 Example:
 ```go

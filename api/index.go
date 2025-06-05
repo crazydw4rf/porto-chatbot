@@ -4,9 +4,9 @@ import (
 	"embed"
 	"net/http"
 
-	"github.com/crazydw4rf/porto-chatbot/internal/config"
-	"github.com/crazydw4rf/porto-chatbot/internal/handler"
-	"github.com/crazydw4rf/porto-chatbot/internal/services"
+	"github.com/crazydw4rf/porto-chatbot/config"
+	"github.com/crazydw4rf/porto-chatbot/handler"
+	"github.com/crazydw4rf/porto-chatbot/services"
 	"github.com/rotisserie/eris"
 
 	"github.com/gofiber/fiber/v2/middleware/adaptor"

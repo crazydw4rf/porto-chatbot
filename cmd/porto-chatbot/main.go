@@ -6,7 +6,7 @@ import (
 	"net/http"
 
 	"github.com/crazydw4rf/porto-chatbot/api"
-	"github.com/crazydw4rf/porto-chatbot/internal/config"
+	"github.com/crazydw4rf/porto-chatbot/config"
 )
 
 func main() {

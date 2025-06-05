@@ -103,7 +103,7 @@ curl -X POST https://your-app.vercel.app/chat \
 
 ## Mengubah Instruksi Portfolio
 
-Jika ingin mengganti konteks portfolio yang digunakan chatbot, ubah nilai konstanta `UcupPortfolio` pada file `internal/instruction/portfolio.go`.
+Jika ingin mengganti konteks portfolio yang digunakan chatbot, ubah nilai konstanta `UcupPortfolio` pada file `instruction/portfolio.go`.
 
 Contoh:
 ```go

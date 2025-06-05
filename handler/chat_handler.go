@@ -1,8 +1,8 @@
 package handler
 
 import (
-	"github.com/crazydw4rf/porto-chatbot/internal/instruction"
-	"github.com/crazydw4rf/porto-chatbot/internal/services"
+	"github.com/crazydw4rf/porto-chatbot/instruction"
+	"github.com/crazydw4rf/porto-chatbot/services"
 	"github.com/gofiber/fiber/v2"
 	"google.golang.org/genai"
 )
