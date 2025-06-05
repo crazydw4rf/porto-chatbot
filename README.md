@@ -39,13 +39,13 @@
   Contoh request payload:
   ```json
   {
-    "question": "Apa pengalaman Ucup dengan Docker?"
+    "prompt": "Apa pengalaman Ucup dengan Docker?"
   }
   ```
   Contoh Response:
   ```json
   {
-    "answer": "Ucup aktif dalam proses deployment menggunakan Docker dan CI/CD pipeline dengan GitHub Actions..."
+    "response": "Ucup aktif dalam proses deployment menggunakan Docker dan CI/CD pipeline dengan GitHub Actions..."
   }
   ```
 
@@ -89,7 +89,7 @@ Setelah deploy berhasil, kamu bisa test endpoint:
 ```bash
 curl -X POST https://your-app.vercel.app/chat \
   -H "Content-Type: application/json" \
-  -d '{"question": "Apa pengalaman Ucup dengan Docker?"}'
+  -d '{"prompt": "Apa pengalaman Ucup dengan Docker?"}'
 ```
 
 ## Catatan
