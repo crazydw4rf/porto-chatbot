@@ -101,13 +101,13 @@ curl -X POST https://your-app.vercel.app/chat \
   ```
   Ganti `3000` dengan port yang diinginkan.
 
-## Mengubah portfolioContext
+## Mengubah Instruksi Portfolio
 
-Jika ingin mengganti konteks portfolio yang digunakan chatbot, ubah nilai variabel `portfolioContext` pada file `cmd/porto-chatbot/main.go`.
+Jika ingin mengganti konteks portfolio yang digunakan chatbot, ubah nilai konstanta `UcupPortfolio` pada file `internal/instruction/portfolio.go`.
 
 Contoh:
 ```go
-const portfolioContext = `Berikut adalah portfolio singkat tentang Budi:
+const UcupPortfolio = `Berikut adalah portfolio singkat tentang Budi:
 Budi adalah seorang Backend Developer yang berpengalaman dalam membangun API dengan Go dan PostgreSQL...`
 ```
 Pastikan untuk menyesuaikan isi string tersebut sesuai kebutuhan.

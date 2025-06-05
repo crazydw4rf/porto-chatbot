@@ -6,13 +6,13 @@ const BOT_NAME = "Porto";
 
 const CHAT_API_PATH = "/chat";
 
-async function requestChatbotResponse(question) {
+async function requestChatbotResponse(prompt) {
   return fetch(CHAT_API_PATH, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
     },
-    body: JSON.stringify({ question }),
+    body: JSON.stringify({ prompt }),
   })
     .then((response) => response.json())
     .catch((error) => console.error("Error:", error));
@@ -26,6 +26,12 @@ function appendMessage(sender, message) {
   chatBox.scrollTop = chatBox.scrollHeight;
 }
 
+/**
+ * @typedef {Object} ChatResponse
+ * @property {string} response - The response from the chatbot.
+ * @property {string} error - Any error message if the request fails.
+ */
+
 chatForm.addEventListener("submit", async function (e) {
   e.preventDefault();
   const question = userInput.value.trim();
@@ -33,9 +39,13 @@ chatForm.addEventListener("submit", async function (e) {
   appendMessage("Kamu", question);
   userInput.value = "";
 
-  request = await requestChatbotResponse(question);
+  /** @type {ChatResponse} */
+  const request = await requestChatbotResponse(question);
 
-  console.log(request.answer);
+  if (request.error) {
+    appendMessage(BOT_NAME, `Error: ${request.error}`);
+    return;
+  }
 
-  appendMessage(BOT_NAME, request.answer);
+  appendMessage(BOT_NAME, request.response);
 });
