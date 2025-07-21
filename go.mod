@@ -6,7 +6,7 @@ require (
 	github.com/gofiber/fiber/v2 v2.52.8
 	github.com/rotisserie/eris v0.5.4
 	github.com/spf13/viper v1.20.1
-	google.golang.org/genai v1.12.0
+	google.golang.org/genai v1.16.0
 )
 
 require (
