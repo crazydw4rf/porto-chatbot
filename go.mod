@@ -3,7 +3,7 @@ module github.com/crazydw4rf/porto-chatbot
 go 1.24.3
 
 require (
-	github.com/gofiber/fiber/v2 v2.52.10
+	github.com/gofiber/fiber/v2 v2.52.11
 	github.com/rotisserie/eris v0.5.4
 	github.com/spf13/viper v1.21.0
 	google.golang.org/genai v1.40.0
